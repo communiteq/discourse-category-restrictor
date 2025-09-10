@@ -1,6 +1,6 @@
 # name: discourse-category-restrictor
 # about: Allows staff and category moderators to silence users on a per-category basis
-# version: 1.2
+# version: 1.3
 # authors: Communiteq
 
 enabled_site_setting :category_restrictor_enabled
@@ -9,7 +9,7 @@ register_asset "stylesheets/common.scss"
 
 require_relative 'lib/discourse_category_restrictor/engine'
 
-register_svg_icon("fas fa-user-slash")
+register_svg_icon("user-slash")
 
 after_initialize do
   require_relative "app/controllers/discourse_category_restrictor/category_restrictor_controller"

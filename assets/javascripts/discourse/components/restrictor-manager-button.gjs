@@ -49,6 +49,7 @@ export default class RestrictorManagerButton extends Component {
         @action={{this.showCategoryRestrictorManager}}
         @icon="user-slash"
         @label={{this.getLabel}}
+        class="category-restrictor-manager-button"
       />
     {{/if}}
   </template>

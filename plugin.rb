@@ -1,6 +1,6 @@
 # name: discourse-category-restrictor
 # about: Allows staff and category moderators to silence users on a per-category basis
-# version: 1.3
+# version: 2026.4
 # authors: Communiteq
 
 enabled_site_setting :category_restrictor_enabled

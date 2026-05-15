@@ -5,7 +5,10 @@ module ::DiscourseCategoryRestrictor
 
       def index
         category = Category.find(params[:category_id])
-        raise Discourse::InvalidAccess unless current_user.staff? || current_user.is_category_group_moderator?(category)
+        raise Discourse::InvalidParameters.new(:category_id) unless category
+
+        guardian = Guardian.new(current_user)
+        raise Discourse::InvalidAccess unless current_user.staff? || guardian.is_category_group_moderator?(category)
 
         silenced_users = find_users_with_restriction('silenced_categories', category.id)
         banned_users = find_users_with_restriction('banned_categories', category.id)
@@ -57,9 +60,12 @@ module ::DiscourseCategoryRestrictor
 
       def find_user_and_category
         @category = Category.find(params[:category_id])
-        @user = User.find(params[:user_id])
         raise Discourse::InvalidParameters.new(:category_id) unless @category
-        raise Discourse::InvalidAccess unless current_user.staff? || current_user.is_category_group_moderator?(@category)
+
+        guardian = Guardian.new(current_user)
+        raise Discourse::InvalidAccess unless current_user.staff? || guardian.is_category_group_moderator?(@category)
+
+        @user = User.find(params[:user_id])
       end
 
       def get_category_ids(user, custom_field_key)
